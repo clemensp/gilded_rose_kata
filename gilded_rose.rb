@@ -33,6 +33,8 @@ def quality_delta_for(item)
     quality_delta_for_backstage_pass(item)
   when 'Sulfuras, Hand of Ragnaros'
     0
+  when /^Conjured/
+    -2
   else
     -1
   end
