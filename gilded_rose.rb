@@ -44,7 +44,7 @@ def update_quality(items)
     if item.name != 'Sulfuras, Hand of Ragnaros'
       item.sell_in -= 1
     end
-    if item.sell_in < 0
+    if item.past_sell_in_days?
       if item.name != "Aged Brie"
         if item.name != 'Backstage passes to a TAFKAL80ETC concert'
           if item.name != 'Sulfuras, Hand of Ragnaros'
@@ -62,7 +62,11 @@ end
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
 
-Item = Struct.new(:name, :sell_in, :quality)
+Item = Struct.new(:name, :sell_in, :quality) do
+  def past_sell_in_days?
+    sell_in < 0
+  end
+end
 
 # We use the setup in the spec rather than the following for testing.
 #
