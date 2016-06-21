@@ -17,7 +17,7 @@ def quality_delta_for(item)
   when 'Aged Brie'
     1
   when 'Backstage passes to a TAFKAL80ETC concert'
-    quality_delta_for_backstage_pass(item.sell_in)
+    quality_delta_for_backstage_pass(item)
   when 'Sulfuras, Hand of Ragnaros'
     0
   else
@@ -25,7 +25,8 @@ def quality_delta_for(item)
   end
 end
 
-def quality_delta_for_backstage_pass(sell_in)
+def quality_delta_for_backstage_pass(item)
+  sell_in = item.sell_in
   if sell_in > 10
     1
   elsif sell_in > 5
@@ -33,7 +34,7 @@ def quality_delta_for_backstage_pass(sell_in)
   elsif sell_in > 0
     3
   else
-    0
+    item.quality * -1
   end
 end
 
@@ -49,17 +50,7 @@ def update_quality(items)
     update_sell_in(item)
 
     if item.past_sell_in_days?
-      if item.name != "Aged Brie"
-        if item.name != 'Backstage passes to a TAFKAL80ETC concert'
-          if item.name != 'Sulfuras, Hand of Ragnaros'
-            apply_quality_change(item)
-          end
-        else
-          item.quality = item.quality - item.quality
-        end
-      else
-        apply_quality_change(item)
-      end
+      apply_quality_change(item)
     end
   end
 end
