@@ -18,20 +18,14 @@ def update_quality(items)
         apply_quality_change(item, -1)
       end
     else
-      if item.quality < 50
-        apply_quality_change(item, 1)
+      apply_quality_change(item, 1)
 
-        if item.name == 'Backstage passes to a TAFKAL80ETC concert'
-          if item.sell_in < 11
-            if item.quality < 50
-              apply_quality_change(item, 1)
-            end
-          end
-          if item.sell_in < 6
-            if item.quality < 50
-              apply_quality_change(item, 1)
-            end
-          end
+      if item.name == 'Backstage passes to a TAFKAL80ETC concert'
+        if item.sell_in < 11
+          apply_quality_change(item, 1)
+        end
+        if item.sell_in < 6
+          apply_quality_change(item, 1)
         end
       end
     end
@@ -48,9 +42,7 @@ def update_quality(items)
           item.quality = item.quality - item.quality
         end
       else
-        if item.quality < 50
-          apply_quality_change(item, 1)
-        end
+        apply_quality_change(item, 1)
       end
     end
   end
