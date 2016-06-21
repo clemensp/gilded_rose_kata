@@ -6,6 +6,7 @@ end
 
 def quality_needs_to_be_updated?(item, delta)
   return false if item.quality + delta < 0
+  return false if item.quality + delta > 50
 
   true
 end
@@ -18,7 +19,8 @@ def update_quality(items)
       end
     else
       if item.quality < 50
-        item.quality += 1
+        apply_quality_change(item, 1)
+
         if item.name == 'Backstage passes to a TAFKAL80ETC concert'
           if item.sell_in < 11
             if item.quality < 50
