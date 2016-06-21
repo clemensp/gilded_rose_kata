@@ -1,14 +1,20 @@
 def apply_quality_change(item, delta)
+  return unless quality_needs_to_be_updated?(item, delta)
+
   item.quality += delta
+end
+
+def quality_needs_to_be_updated?(item, delta)
+  return false if item.quality + delta < 0
+
+  true
 end
 
 def update_quality(items)
   items.each do |item|
     if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
-      if item.quality > 0
-        if item.name != 'Sulfuras, Hand of Ragnaros'
-          apply_quality_change(item, -1)
-        end
+      if item.name != 'Sulfuras, Hand of Ragnaros'
+        apply_quality_change(item, -1)
       end
     else
       if item.quality < 50
@@ -33,10 +39,8 @@ def update_quality(items)
     if item.sell_in < 0
       if item.name != "Aged Brie"
         if item.name != 'Backstage passes to a TAFKAL80ETC concert'
-          if item.quality > 0
-            if item.name != 'Sulfuras, Hand of Ragnaros'
-              apply_quality_change(item, -1)
-            end
+          if item.name != 'Sulfuras, Hand of Ragnaros'
+            apply_quality_change(item, -1)
           end
         else
           item.quality = item.quality - item.quality
