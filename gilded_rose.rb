@@ -49,7 +49,7 @@ def update_quality(items)
     apply_quality_change(item)
     update_sell_in(item)
 
-    if item.past_sell_in_days?
+    if item.expired?
       apply_quality_change(item)
     end
   end
@@ -58,7 +58,7 @@ end
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
 
 Item = Struct.new(:name, :sell_in, :quality) do
-  def past_sell_in_days?
+  def expired?
     sell_in < 0
   end
 end
