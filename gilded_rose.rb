@@ -1,3 +1,16 @@
+def update_quality(items)
+  items.each do |item|
+    apply_quality_change(item)
+    update_sell_in(item)
+
+    if item.expired?
+      apply_quality_change(item)
+    end
+  end
+end
+
+private
+
 def apply_quality_change(item)
   delta = quality_delta_for(item) 
   return unless quality_needs_to_be_updated?(item, delta)
@@ -41,17 +54,6 @@ end
 def update_sell_in(item)
   if item.name != 'Sulfuras, Hand of Ragnaros'
     item.sell_in -= 1
-  end
-end
-
-def update_quality(items)
-  items.each do |item|
-    apply_quality_change(item)
-    update_sell_in(item)
-
-    if item.expired?
-      apply_quality_change(item)
-    end
   end
 end
 
