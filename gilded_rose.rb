@@ -37,13 +37,17 @@ def quality_delta_for_backstage_pass(sell_in)
   end
 end
 
+def update_sell_in(item)
+  if item.name != 'Sulfuras, Hand of Ragnaros'
+    item.sell_in -= 1
+  end
+end
+
 def update_quality(items)
   items.each do |item|
     apply_quality_change(item)
+    update_sell_in(item)
 
-    if item.name != 'Sulfuras, Hand of Ragnaros'
-      item.sell_in -= 1
-    end
     if item.past_sell_in_days?
       if item.name != "Aged Brie"
         if item.name != 'Backstage passes to a TAFKAL80ETC concert'
